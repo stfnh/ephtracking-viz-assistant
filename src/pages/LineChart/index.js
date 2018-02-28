@@ -12,11 +12,13 @@ class LineChart extends Component {
     super(props);
     this.state = {
       measureId: null,
-      state: null
+      state: null,
+      view: 'preview'
     };
     this.setMeasureId = this.setMeasureId.bind(this);
     this.handleStateSelect = this.handleStateSelect.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.setView = this.setView.bind(this);
   }
 
   setMeasureId(measureId) {
@@ -38,10 +40,15 @@ class LineChart extends Component {
     });
   }
 
+  setView(view) {
+    this.setState({ view });
+  }
+
   render() {
-    const { measureId, state } = this.state;
+    const { measureId, state, view } = this.state;
     const isValid = measureId && state;
     return (
+      
       <div className="container">
         <h1 className="title">Time-series chart of one measure for one state</h1>
         <hr />
@@ -51,8 +58,13 @@ class LineChart extends Component {
           measureId={this.state.measureId}
           handleSelect={this.handleStateSelect}
         />
-        <hr />
-        { isValid && <VizPreview measureId={measureId} state={state} /> }
+      <div className="tabs">
+        <ul>
+          <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}><a>Preview</a></li>
+          <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}><a>Code</a></li>
+        </ul>
+      </div>
+      { view === 'preview' && isValid && <VizPreview measureId={measureId} state={state} /> }
       </div>
     );
   }
