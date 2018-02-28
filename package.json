@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.6.2",
-    "ephtracking-viz": "^0.3.0",
+    "d3": "^4.13.0",
     "font-awesome": "^4.7.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
