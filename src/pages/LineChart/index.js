@@ -23,8 +23,7 @@ class LineChart extends Component {
   setMeasureId(measureId) {
     this.setState({
       measureId,
-      states: [],
-      year: null
+      state: null
     });
   }
 
@@ -51,8 +50,8 @@ class LineChart extends Component {
   data: {
     measureId: '${measureId}',
     state: '${state}'
-  }
-};`
+    }
+  };`
     return (
       <div className="container">
         <h1 className="title">Time-series chart of one measure for one state</h1>
@@ -81,7 +80,7 @@ class LineChart extends Component {
       </div>
       { view === 'preview' && isValid && <VizPreview measureId={measureId} state={state} /> }
       { view === 'code' && <Code options={options} />}
-      </div>
+    </div>
     );
   }
 }
