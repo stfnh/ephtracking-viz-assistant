@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
 import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
+import Code from '../../components/Code';
 
 import SelectState from '../../containers/SelectState';
-
 import './LineChart.css';
 
 class LineChart extends Component {
@@ -47,8 +46,14 @@ class LineChart extends Component {
   render() {
     const { measureId, state, view } = this.state;
     const isValid = measureId && state;
+    const options = `var options = {
+  type: 'line-chart',
+  data: {
+    measureId: '${measureId}',
+    state: '${state}'
+  }
+};`
     return (
-      
       <div className="container">
         <h1 className="title">Time-series chart of one measure for one state</h1>
         <hr />
@@ -60,11 +65,22 @@ class LineChart extends Component {
         />
       <div className="tabs">
         <ul>
-          <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}><a>Preview</a></li>
-          <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}><a>Code</a></li>
+          <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
+            <a>
+              <span className="icon is-small"><i className="fas fa-chart-bar"></i></span>
+              <span>Preview</span>
+            </a>
+          </li>
+          <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}>
+            <a>
+              <span className="icon is-small"><i className="fas fa-code"></i></span>
+              <span>Code</span>
+            </a>
+          </li>
         </ul>
       </div>
       { view === 'preview' && isValid && <VizPreview measureId={measureId} state={state} /> }
+      { view === 'code' && <Code options={options} />}
       </div>
     );
   }

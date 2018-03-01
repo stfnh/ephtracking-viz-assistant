@@ -49,7 +49,7 @@ export class CIM extends Component {
   }
 }
 
-CIM.propTyes = {
+CIM.propTypes = {
   handleSelect: PropTypes.func.isRequired
 };
 
