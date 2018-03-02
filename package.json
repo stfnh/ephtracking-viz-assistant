@@ -8,9 +8,10 @@
     "bulma": "^0.6.2",
     "d3": "^4.13.0",
     "ephtracking-viz": "^0.4.0",
-    "font-awesome": "^4.7.0",
+    "font-awesome": "4.7.0",
     "gh-pages": "^1.1.0",
     "react": "^16.2.0",
+    "react-checkbox-tree": "^1.0.2",
     "react-dom": "^16.2.0",
     "react-syntax-highlighter": "^7.0.1"
   },

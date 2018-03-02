@@ -3,7 +3,7 @@ import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
 
-import SelectState from '../../containers/SelectState';
+import StateFIPS from '../../containers/StateFIPS';
 import './LineChart.css';
 
 class LineChart extends Component {
@@ -11,7 +11,7 @@ class LineChart extends Component {
     super(props);
     this.state = {
       measureId: null,
-      state: null,
+      states: null,
       view: 'preview'
     };
     this.setMeasureId = this.setMeasureId.bind(this);
@@ -23,12 +23,12 @@ class LineChart extends Component {
   setMeasureId(measureId) {
     this.setState({
       measureId,
-      state: null
+      states: null
     });
   }
 
-  handleStateSelect(state) {
-    this.setState({ state });
+  handleStateSelect(states) {
+    this.setState({ states });
   }
 
   handleInputChange(event) {
@@ -43,42 +43,42 @@ class LineChart extends Component {
   }
 
   render() {
-    const { measureId, state, view } = this.state;
-    const isValid = measureId && state;
+    const { measureId, states, view } = this.state;
+    const isValid = measureId && states;
     const options = `var options = {
   type: 'line-chart',
   data: {
     measureId: '${measureId}',
-    state: '${state}'
+    states: ['${states && states.join("', '")}']
     }
   };`
     return (
       <div className="container">
-        <h1 className="title">Time-series chart of one measure for one state</h1>
+        <h1 className="title">Time-series chart</h1>
         <hr />
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasureId} />
-        <SelectState
+        <StateFIPS
           measureId={this.state.measureId}
-          handleSelect={this.handleStateSelect}
+          handleCheck={this.handleStateSelect}
         />
       <div className="tabs">
         <ul>
           <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
             <a>
-              <span className="icon is-small"><i className="fas fa-chart-bar"></i></span>
+              <span className="icon is-small"><i className="fa fa-line-chart"></i></span>
               <span>Preview</span>
             </a>
           </li>
           <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}>
             <a>
-              <span className="icon is-small"><i className="fas fa-code"></i></span>
+              <span className="icon is-small"><i className="fa fa-code"></i></span>
               <span>Code</span>
             </a>
           </li>
         </ul>
       </div>
-      { view === 'preview' && isValid && <VizPreview measureId={measureId} state={state} /> }
+      { view === 'preview' && isValid && <VizPreview measureId={measureId} states={states} /> }
       { view === 'code' && <Code options={options} />}
     </div>
     );
