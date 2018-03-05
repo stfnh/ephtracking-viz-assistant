@@ -3,7 +3,7 @@ import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
 
-import StateFIPS from '../../containers/StateFIPS';
+import SelectStates from '../../containers/SelectStates';
 import './LineChart.css';
 
 class LineChart extends Component {
@@ -28,7 +28,7 @@ class LineChart extends Component {
   }
 
   handleStateSelect(states) {
-    this.setState({ states });
+    this.setState({ states: states.map(s => s.value) });
   }
 
   handleInputChange(event) {
@@ -58,9 +58,9 @@ class LineChart extends Component {
         <hr />
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasureId} />
-        <StateFIPS
+        <SelectStates
           measureId={this.state.measureId}
-          handleCheck={this.handleStateSelect}
+          handleSelect={this.handleStateSelect}
         />
       <div className="tabs">
         <ul>
