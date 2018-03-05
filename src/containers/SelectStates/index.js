@@ -55,23 +55,29 @@ class SelectStates extends Component {
     const filteredStates = states.filter(item =>
       statesByMeasure.find(fips => item.value === fips)
     );
-    console.log(filteredStates);
 
     return (
-      <Select
-        name="form-field-name"
-        value={value}
-        onChange={this.handleChange}
-        options={filteredStates}
-        disabled={this.props.measureId === null}
-        multi
-      />
+      <div className="field">
+        <label className="label">Select state(s)</label>
+        <div className="control">
+          <div className="select" style={{minWidth: 300}}>
+            <Select
+              name="select-states"
+              value={value}
+              onChange={this.handleChange}
+              options={filteredStates}
+              disabled={this.props.measureId === null}
+              multi
+            />
+          </div>
+        </div>
+      </div>
     );
   }
 };
 
 SelectStates.propTypes = {
-  measureId: PropTypes.string.isRequired,
+  measureId: PropTypes.string,
   handleSelect: PropTypes.func.isRequired
 };
 
