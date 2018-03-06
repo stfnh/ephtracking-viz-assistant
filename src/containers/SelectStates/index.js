@@ -60,7 +60,7 @@ class SelectStates extends Component {
       <div className="field">
         <label className="label">Select state(s)</label>
         <div className="control">
-          <div className="select" style={{minWidth: 300}}>
+          <div className="select" style={{minWidth: 385}}>
             <Select
               name="select-states"
               value={value}
