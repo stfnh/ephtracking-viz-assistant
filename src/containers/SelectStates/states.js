@@ -9,7 +9,7 @@ export default [
   { value: "10", label: "Delaware" },
   { value: "11", label: "District of Columbia" },
   { value: "12", label: "Florida" },
-  { value: "13", label: "Geogia" },
+  { value: "13", label: "Georgia" },
   { value: "15", label: "Hawaii" },
   { value: "16", label: "Idaho" },
   { value: "17", label: "Illinois" },
