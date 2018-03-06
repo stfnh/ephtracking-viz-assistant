@@ -2433,8 +2433,8 @@ entities@~1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
 ephtracking-viz@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ephtracking-viz/-/ephtracking-viz-1.0.1.tgz#c425718864a77b91c6bf101bfb9d88a1281cec7a"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/ephtracking-viz/-/ephtracking-viz-1.0.2.tgz#dc1e13808ac643a0d3c595b5bbce1562cc54f6dc"
   dependencies:
     babel-polyfill "6.26.0"
     d3 "4.13.0"
@@ -5957,8 +5957,8 @@ react-select@^1.2.1:
     react-input-autosize "^2.1.2"
 
 react-syntax-highlighter@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/react-syntax-highlighter/-/react-syntax-highlighter-7.0.1.tgz#14eb6e669da6c4e4da3b2f86ff5e3b9b522aa473"
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/react-syntax-highlighter/-/react-syntax-highlighter-7.0.2.tgz#674036d4803183f3a33202defc35e5ba83d992f5"
   dependencies:
     babel-runtime "^6.18.0"
     highlight.js "~9.12.0"
