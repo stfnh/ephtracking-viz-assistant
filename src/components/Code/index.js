@@ -6,7 +6,7 @@ import { docco } from 'react-syntax-highlighter/styles/hljs';
 import './Code.css';
 
 const Code = ({ options }) => {
-  const svgContainer = '<svg id="viz" width="600" height="400"></svg>';
+  const svgContainer = '<svg id="viz" width="900" height="400"></svg>';
   const snippet = `
 <script src="https://d3js.org/d3.v4.min.js"></script>  
 <script src="https://unpkg.com/ephtracking-viz/dist/index.umd.min.js"></script>
