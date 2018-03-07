@@ -1,6 +1,6 @@
 # EPH Tracking Viz Assistant
 
-[![Build Status](https://travis-ci.org/stfnh/ephtracking-viz-assistant.svg?branch=master)](https://travis-ci.org/stfnh/ephtracking-api-assistant) 
+[![Build Status](https://travis-ci.org/stfnh/ephtracking-viz-assistant.svg?branch=master)](https://travis-ci.org/stfnh/ephtracking-viz-assistant) 
 
 Hosted on github pages: https://stfnh.github.io/ephtracking-viz-assistant
 

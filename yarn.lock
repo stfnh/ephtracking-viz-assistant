@@ -2488,8 +2488,8 @@ entities@~1.1.1:
   resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
 
 ephtracking-viz@^1.0.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/ephtracking-viz/-/ephtracking-viz-1.1.0.tgz#6e05c717a04b41dbba785f6f3c07ca7e6eb8313a"
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ephtracking-viz/-/ephtracking-viz-1.1.1.tgz#f8d5e21f1d749d34a7f6012d4c6450be58993947"
   dependencies:
     babel-polyfill "6.26.0"
     d3 "4.13.0"
