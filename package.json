@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.6.2",
+    "core-js": "2.5.3",
     "d3": "^4.13.0",
     "ephtracking-viz": "^1.0.0",
     "font-awesome": "4.7.0",
