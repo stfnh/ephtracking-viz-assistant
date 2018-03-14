@@ -40,7 +40,8 @@ class SelectGeographicType extends Component {
   }
 
   handleChange(event) {
-    this.props.handleSelect(event.target.value);
+    const { options } = this.state;
+    this.props.handleSelect(options[event.target.value]);
     this.setState({ value: event.target.value });
   }
 
@@ -49,7 +50,7 @@ class SelectGeographicType extends Component {
     const disabled = this.props.measureId === null;
 
     const optionsToRender = options.map((item, index) => (
-      <option key={index} value={item.geographicTypeId}>
+      <option key={index} value={index}>
         {item.geographicType}
       </option>
     ));
@@ -79,7 +80,7 @@ class SelectGeographicType extends Component {
 }
 
 SelectGeographicType.propTypes = {
-  handleSelect: PropTypes.func.isRequired,
+  handleSelect: PropTypes.func.isRequired, // callback with geographicType object
   measureId: PropTypes.string
 };
 

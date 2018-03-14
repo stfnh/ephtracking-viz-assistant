@@ -11,6 +11,7 @@
     "ephtracking-viz": "^2.0.0",
     "font-awesome": "4.7.0",
     "gh-pages": "^1.1.0",
+    "rc-slider": "^8.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-select": "^1.2.1",
