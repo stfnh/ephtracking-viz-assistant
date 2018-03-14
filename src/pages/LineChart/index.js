@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
+import GeographicFilter from '../../components/GeographicFilter';
 
-import SelectStates from '../../containers/SelectStates';
+import SelectGeographicType from '../../containers/SelectGeographicType';
 import './LineChart.css';
 
 class LineChart extends Component {
@@ -11,30 +12,41 @@ class LineChart extends Component {
     super(props);
     this.state = {
       measureId: null,
-      states: null,
+      geographicTypeId: null,
+      stratificationLevelId: null,
+      geographicTypeIdFilter: null,
+      geographicItemsFilter: null,
       view: 'preview'
     };
     this.setMeasureId = this.setMeasureId.bind(this);
-    this.handleStateSelect = this.handleStateSelect.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.setGeographicTypeId = this.setGeographicTypeId.bind(this);
+    this.setGeographicFilter = this.setGeographicFilter.bind(this);
     this.setView = this.setView.bind(this);
   }
 
   setMeasureId(measureId) {
     this.setState({
       measureId,
-      states: null
+      geographicTypeId: null,
+      stratificationLevelId: null,
+      geographicTypeIdFilter: null,
+      geographicItemsFilter: null
     });
   }
 
-  handleStateSelect(states) {
-    this.setState({ states: states.map(s => s.value) });
-  }
-
-  handleInputChange(event) {
-    const { name, checked } = event.target;
+  setGeographicTypeId(geographicTypeId) {
     this.setState({
-      [name]: checked
+      geographicTypeId,
+      stratificationLevelId: geographicTypeId, // stratification not supported yet
+      geographicTypeIdFilter: null,
+      geographicItemsFilter: null
+    });
+  }
+  
+  setGeographicFilter(filter) {
+    this.setState({
+      geographicTypeIdFilter: filter.geographicTypeIdFilter,
+      geographicItemsFilter: filter.geographicItemsFilter.map(i => i.value)
     });
   }
 
@@ -43,13 +55,20 @@ class LineChart extends Component {
   }
 
   render() {
-    const { measureId, states, view } = this.state;
-    const isValid = measureId && states;
+    const { measureId,
+      geographicTypeId,
+      stratificationLevelId,
+      geographicTypeIdFilter,
+      geographicItemsFilter,
+      view } = this.state;
+    const isValid = measureId && geographicTypeId && stratificationLevelId && geographicTypeIdFilter && geographicItemsFilter;
     const options = `var options = {
   type: 'line-chart',
   data: {
     measureId: '${measureId}',
-    states: ['${states && states.join("', '")}']
+    stratificationLevelId: '${stratificationLevelId}',
+    geographicTypeIdFilter: '${geographicTypeIdFilter}',
+    geographicItemsFilter: ['${geographicItemsFilter && geographicItemsFilter.join("', '")}']
     }
   };`
     return (
@@ -58,9 +77,14 @@ class LineChart extends Component {
         <hr />
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasureId} />
-        <SelectStates
-          measureId={this.state.measureId}
-          handleSelect={this.handleStateSelect}
+        <SelectGeographicType
+          measureId={measureId}
+          handleSelect={this.setGeographicTypeId}
+        />
+        <GeographicFilter
+          measureId={measureId}
+          geographicTypeId={geographicTypeId}
+          handleSelect={this.setGeographicFilter}
         />
       <div className="tabs">
         <ul>
@@ -78,7 +102,14 @@ class LineChart extends Component {
           </li>
         </ul>
       </div>
-      { view === 'preview' && isValid && <VizPreview measureId={measureId} states={states} /> }
+      { view === 'preview' && isValid &&
+        <VizPreview
+          measureId={measureId}
+          stratificationLevelId={stratificationLevelId}
+          geographicTypeIdFilter={geographicTypeIdFilter}
+          geographicItemsFilter={geographicItemsFilter}
+        />
+      }
       { view === 'code' && <Code options={options} />}
     </div>
     );

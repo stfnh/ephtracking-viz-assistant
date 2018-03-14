@@ -5,12 +5,17 @@ import * as d3 from 'd3';
 
 class VizPreview extends Component {
   componentDidMount() {
-    const { measureId, states } = this.props;
+    const { measureId,
+      geographicItemsFilter,
+      stratificationLevelId,
+      geographicTypeIdFilter } = this.props;
     const options = {
       type: 'line-chart',
       data: {
         measureId,
-        states
+        stratificationLevelId,
+        geographicTypeIdFilter,
+        geographicItemsFilter
       }
     };
     ephtrackingViz.createVisualization(this.svg, options);
@@ -23,12 +28,17 @@ class VizPreview extends Component {
 
   componentWillReceiveProps(newProps) {
     d3.select(this.svg).selectAll('*').remove();
-    const { measureId, states } = newProps;
+    const { measureId,
+      geographicItemsFilter,
+      stratificationLevelId,
+      geographicTypeIdFilter } = newProps;
     const options = {
       type: 'line-chart',
       data: {
         measureId,
-        states
+        stratificationLevelId,
+        geographicTypeIdFilter,
+        geographicItemsFilter
       }
     };
     ephtrackingViz.createVisualization(this.svg, options);
@@ -44,7 +54,9 @@ class VizPreview extends Component {
 
 VizPreview.propTypes = {
   measureId: PropTypes.string.isRequired,
-  states: PropTypes.array.isRequired
+  stratificationLevelId: PropTypes.string.isRequired,
+  geographicTypeIdFilter: PropTypes.string.isRequired,
+  geographicItemsFilter: PropTypes.array.isRequired
 };
 
 export default VizPreview;
