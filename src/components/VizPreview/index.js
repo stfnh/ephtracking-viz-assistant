@@ -64,7 +64,10 @@ VizPreview.propTypes = {
   geographicTypeIdFilter: PropTypes.string.isRequired,
   geographicItemsFilter: PropTypes.array.isRequired,
   isSmoothed: PropTypes.string.isRequired,
-  temporal: PropTypes.string.isRequired
+  temporal: PropTypes.oneOfType([
+    PropTypes.string.isRequired,
+    PropTypes.arrayOf(PropTypes.string)
+  ])
 };
 
 export default VizPreview;

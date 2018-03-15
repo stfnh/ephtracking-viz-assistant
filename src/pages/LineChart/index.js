@@ -3,7 +3,7 @@ import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
 import GeographicFilter from '../../components/GeographicFilter';
-import SelectYearRange from '../../containers/SelectYearRange';
+import SelectYears from '../../containers/SelectYears';
 
 import SelectGeographicType from '../../containers/SelectGeographicType';
 import './LineChart.css';
@@ -35,7 +35,8 @@ class LineChart extends Component {
       stratificationLevelId: null,
       geographicTypeIdFilter: null,
       geographicItemsFilter: null,
-      isSmoothed: null
+      isSmoothed: null,
+      years: null
     });
   }
 
@@ -75,11 +76,21 @@ class LineChart extends Component {
       view } = this.state;
     const isValid = measureId && geographicTypeId && stratificationLevelId &&
       geographicTypeIdFilter && geographicItemsFilter && isSmoothed && years;
+    let temporal;
+    if (years && years.length > 0) {
+      const min = years[0];
+      const max = years[years.length - 1];
+      if (min === max) {
+        temporal = min;
+      } else {
+        temporal = `${min}-${max}`;
+      }
+    }
     const options = `var options = {
   type: 'line-chart',
   data: {
     measureId: '${measureId}',
-    years: '${years}',
+    temporal: '${temporal}',
     stratificationLevelId: '${stratificationLevelId}',
     geographicTypeIdFilter: '${geographicTypeIdFilter}',
     geographicItemsFilter: ['${geographicItemsFilter && geographicItemsFilter.join("', '")}'],
@@ -92,9 +103,9 @@ class LineChart extends Component {
         <hr />
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasureId} />
-        <SelectYearRange
+        <SelectYears
           measureId={measureId}
-          handleChange={this.setYears}
+          handleCheck={this.setYears}
         />
         <SelectGeographicType
           measureId={measureId}
