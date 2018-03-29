@@ -9,7 +9,8 @@ class VizPreview extends Component {
       geographicItemsFilter,
       stratificationLevelId,
       geographicTypeIdFilter,
-      isSmoothed } = this.props;
+      isSmoothed,
+      queryParams } = this.props;
     const options = {
       type: 'line-chart',
       data: {
@@ -17,7 +18,8 @@ class VizPreview extends Component {
         stratificationLevelId,
         geographicTypeIdFilter,
         geographicItemsFilter,
-        isSmoothed
+        isSmoothed,
+        queryParams
       }
     };
     ephtrackingViz.createVisualization(this.svg, options);
@@ -35,7 +37,8 @@ class VizPreview extends Component {
       stratificationLevelId,
       geographicTypeIdFilter,
       temporal,
-      isSmoothed } = newProps;
+      isSmoothed,
+      queryParams } = newProps;
     const options = {
       type: 'line-chart',
       data: {
@@ -44,7 +47,8 @@ class VizPreview extends Component {
         geographicTypeIdFilter,
         geographicItemsFilter,
         isSmoothed,
-        temporal
+        temporal,
+        queryParams
       }
     };
     ephtrackingViz.createVisualization(this.svg, options);

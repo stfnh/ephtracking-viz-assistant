@@ -4,6 +4,7 @@ import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
 import GeographicFilter from '../../components/GeographicFilter';
 import SelectYears from '../../containers/SelectYears';
+import SelectStratificationLevel from '../../containers/SelectStratificationLevel';
 
 import SelectGeographicType from '../../containers/SelectGeographicType';
 import './LineChart.css';
@@ -19,13 +20,15 @@ class LineChart extends Component {
       geographicItemsFilter: null,
       isSmoothed: null,
       years: null,
-      view: 'preview'
+      view: 'preview',
+      queryParams: ''
     };
     this.setMeasureId = this.setMeasureId.bind(this);
     this.setGeographicTypeId = this.setGeographicTypeId.bind(this);
     this.setGeographicFilter = this.setGeographicFilter.bind(this);
     this.setView = this.setView.bind(this);
     this.setYears = this.setYears.bind(this);
+    this.setStratificationLevel = this.setStratificationLevel.bind(this);
   }
 
   setMeasureId(measureId) {
@@ -48,7 +51,6 @@ class LineChart extends Component {
     this.setState({
       geographicTypeId: geographicType.geographicTypeId.toString(),
       isSmoothed: geographicType.smoothingLevelId === 1 ? '0' : '1', // 1 = no smoothing available (api)
-      stratificationLevelId: geographicType.geographicTypeId.toString(), // stratification not supported yet
       geographicTypeIdFilter: null,
       geographicItemsFilter: null
     });
@@ -59,6 +61,15 @@ class LineChart extends Component {
       geographicTypeIdFilter: filter.geographicTypeIdFilter,
       geographicItemsFilter: filter.geographicItemsFilter.map(i => i.value)
     });
+  }
+  
+  setStratificationLevel(stratificationLevelId, queryParams) {
+    console.log(stratificationLevelId);
+    console.log(queryParams);
+    this.setState({
+      stratificationLevelId,
+      queryParams
+    })
   }
 
   setView(view) {
@@ -73,6 +84,7 @@ class LineChart extends Component {
       geographicItemsFilter,
       isSmoothed,
       years,
+      queryParams,
       view } = this.state;
     const isValid = measureId && geographicTypeId && stratificationLevelId &&
       geographicTypeIdFilter && geographicItemsFilter && isSmoothed && years;
@@ -94,7 +106,8 @@ class LineChart extends Component {
     stratificationLevelId: '${stratificationLevelId}',
     geographicTypeIdFilter: '${geographicTypeIdFilter}',
     geographicItemsFilter: ['${geographicItemsFilter && geographicItemsFilter.join("', '")}'],
-    isSmoothed: '${isSmoothed}'
+    isSmoothed: '${isSmoothed}',
+    queryParams: '${queryParams}'
     }
   };`
     return (
@@ -115,6 +128,11 @@ class LineChart extends Component {
           measureId={measureId}
           geographicTypeId={geographicTypeId}
           handleSelect={this.setGeographicFilter}
+        />
+        <SelectStratificationLevel
+          measureId={measureId}
+          geographicTypeId={geographicTypeId}
+          handleSelect={this.setStratificationLevel}
         />
       <div className="tabs">
         <ul>
@@ -140,6 +158,7 @@ class LineChart extends Component {
           geographicTypeIdFilter={geographicTypeIdFilter}
           geographicItemsFilter={geographicItemsFilter}
           isSmoothed={isSmoothed}
+          queryParams={queryParams}
         />
       }
       { view === 'code' && <Code options={options} />}
