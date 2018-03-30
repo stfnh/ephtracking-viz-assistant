@@ -20,7 +20,8 @@ class VizPreview extends Component {
         geographicItemsFilter,
         isSmoothed,
         queryParams
-      }
+      },
+      title: 'Line Chart'
     };
     ephtrackingViz.createVisualization(this.svg, options);
   }
@@ -49,7 +50,8 @@ class VizPreview extends Component {
         isSmoothed,
         temporal,
         queryParams
-      }
+      },
+      title: 'Line Chart'
     };
     ephtrackingViz.createVisualization(this.svg, options);
 
