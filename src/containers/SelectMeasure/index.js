@@ -40,7 +40,10 @@ class SelectMeasure extends Component {
   }
 
   handleChange(event) {
-    this.props.handleSelect(event.target.value);
+    const title = this.state.options
+      .find(o => o.id === event.target.value)
+      .name;
+    this.props.handleSelect(event.target.value, title);
     this.setState({ value: event.target.value });
   }
 

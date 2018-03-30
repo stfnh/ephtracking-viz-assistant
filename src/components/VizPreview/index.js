@@ -6,6 +6,7 @@ import * as d3 from 'd3';
 class VizPreview extends Component {
   componentDidMount() {
     const { measureId,
+      title,
       geographicItemsFilter,
       stratificationLevelId,
       geographicTypeIdFilter,
@@ -13,6 +14,7 @@ class VizPreview extends Component {
       queryParams } = this.props;
     const options = {
       type: 'line-chart',
+      title,
       data: {
         measureId,
         stratificationLevelId,
@@ -20,8 +22,7 @@ class VizPreview extends Component {
         geographicItemsFilter,
         isSmoothed,
         queryParams
-      },
-      title: 'Line Chart'
+      }
     };
     ephtrackingViz.createVisualization(this.svg, options);
   }
@@ -34,6 +35,7 @@ class VizPreview extends Component {
   componentWillReceiveProps(newProps) {
     d3.select(this.svg).selectAll('*').remove();
     const { measureId,
+      title,
       geographicItemsFilter,
       stratificationLevelId,
       geographicTypeIdFilter,
@@ -42,6 +44,7 @@ class VizPreview extends Component {
       queryParams } = newProps;
     const options = {
       type: 'line-chart',
+      title,
       data: {
         measureId,
         stratificationLevelId,
@@ -50,8 +53,7 @@ class VizPreview extends Component {
         isSmoothed,
         temporal,
         queryParams
-      },
-      title: 'Line Chart'
+      }
     };
     ephtrackingViz.createVisualization(this.svg, options);
 
@@ -66,6 +68,7 @@ class VizPreview extends Component {
 
 VizPreview.propTypes = {
   measureId: PropTypes.string.isRequired,
+  title: PropTypes.string,
   stratificationLevelId: PropTypes.string.isRequired,
   geographicTypeIdFilter: PropTypes.string.isRequired,
   geographicItemsFilter: PropTypes.array.isRequired,

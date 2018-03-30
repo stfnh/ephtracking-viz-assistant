@@ -28,8 +28,8 @@ export class CIM extends Component {
     this.setMeasureId(null);
   }
 
-  setMeasureId(measureId) {
-    this.props.handleSelect(measureId);
+  setMeasureId(measureId, title) {
+    this.props.handleSelect(measureId, title);
   }
 
   render() {

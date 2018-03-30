@@ -14,6 +14,7 @@ class LineChart extends Component {
     super(props);
     this.state = {
       measureId: null,
+      title: null,
       geographicTypeId: null,
       stratificationLevelId: null,
       geographicTypeIdFilter: null,
@@ -23,7 +24,7 @@ class LineChart extends Component {
       view: 'preview',
       queryParams: ''
     };
-    this.setMeasureId = this.setMeasureId.bind(this);
+    this.setMeasure = this.setMeasure.bind(this);
     this.setGeographicTypeId = this.setGeographicTypeId.bind(this);
     this.setGeographicFilter = this.setGeographicFilter.bind(this);
     this.setView = this.setView.bind(this);
@@ -31,9 +32,12 @@ class LineChart extends Component {
     this.setStratificationLevel = this.setStratificationLevel.bind(this);
   }
 
-  setMeasureId(measureId) {
+  setMeasure(measureId, title) {
+    console.log(measureId);
+    console.log(title);
     this.setState({
       measureId,
+      title,
       geographicTypeId: null,
       stratificationLevelId: null,
       geographicTypeIdFilter: null,
@@ -78,6 +82,7 @@ class LineChart extends Component {
 
   render() {
     const { measureId,
+      title,
       geographicTypeId,
       stratificationLevelId,
       geographicTypeIdFilter,
@@ -100,6 +105,7 @@ class LineChart extends Component {
     }
     const options = `var options = {
   type: 'line-chart',
+  title: '${title}',
   data: {
     measureId: '${measureId}',
     temporal: '${temporal}',
@@ -115,7 +121,7 @@ class LineChart extends Component {
         <h1 className="title">Time-series chart</h1>
         <hr />
         <h5 className="title is-5">Set parameters</h5>
-        <CIM handleSelect={this.setMeasureId} />
+        <CIM handleSelect={this.setMeasure} />
         <SelectYears
           measureId={measureId}
           handleCheck={this.setYears}
@@ -159,6 +165,7 @@ class LineChart extends Component {
           geographicItemsFilter={geographicItemsFilter}
           isSmoothed={isSmoothed}
           queryParams={queryParams}
+          title={title}
         />
       }
       { view === 'code' && <Code options={options} />}
