@@ -31,8 +31,10 @@ class SelectGeographicType extends Component {
           `https://ephtracking.cdc.gov/apigateway/api/v1/geographiclevels/${measureId}`
         );
         this.setState({
-          options: response.data
+          options: response.data,
+          value: response.data[0] // default first value
         });
+        this.props.handleSelect(response.data[0]);
       } catch (error) {
         console.error(error);
       }

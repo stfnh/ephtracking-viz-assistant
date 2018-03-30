@@ -35,8 +35,9 @@ export class SelectYears extends Component {
         this.setState({
           years: response.data,
           expanded: [],
-          checked: []
+          checked: response.data // default: all
         });
+        this.props.handleCheck(response.data);
       } catch (error) {
         console.error(error);
       }
