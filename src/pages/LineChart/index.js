@@ -33,8 +33,6 @@ class LineChart extends Component {
   }
 
   setMeasure(measureId, title) {
-    console.log(measureId);
-    console.log(title);
     this.setState({
       measureId,
       title,
@@ -68,8 +66,6 @@ class LineChart extends Component {
   }
   
   setStratificationLevel(stratificationLevelId, queryParams) {
-    console.log(stratificationLevelId);
-    console.log(queryParams);
     this.setState({
       stratificationLevelId,
       queryParams

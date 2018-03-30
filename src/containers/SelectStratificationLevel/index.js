@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import CheckboxTree from 'react-checkbox-tree';
 import axios from 'axios';
@@ -7,7 +7,6 @@ import axios from 'axios';
  *
  * Select Stratification Level AND its query parameters
  * callback handleSelect will be called with stratificationLevelId and queryParameters
- * TODO: determine stratificaitonLevelId by selected query parameters
  * 
  */
 class SelectStratificationLevel extends Component {
@@ -15,17 +14,13 @@ class SelectStratificationLevel extends Component {
     super(props);
     this.state = {
       // stratification level
-      options: [],
-      stratifications: [],
-      value: '',
+      stratificationlevels: [],
       // query params
       parameterOptions: [],
       checked: [],
       expanded: []
     };
-    this.handleChange = this.handleChange.bind(this);
     this.getOptions = this.getOptions.bind(this);
-    this.setParameterOptions = this.setParameterOptions.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleExpand = this.handleExpand.bind(this);
   }
@@ -41,9 +36,7 @@ class SelectStratificationLevel extends Component {
     ) {
       // reset state
       this.setState({
-        options: [],
-        stratifications: [],
-        value: '',
+        stratificationlevels: [],
         parameterOptions: [],
         checked: [],
         expanded: []
@@ -59,64 +52,53 @@ class SelectStratificationLevel extends Component {
           `https://ephtracking.cdc.gov/apigateway/api/v1/stratificationlevel/${measureId}/${geographicTypeId}/0`
         );
         this.setState({
-          options: response.data
+          stratificationlevels: response.data
         });
         const stratifications = await axios(
           `https://ephtracking.cdc.gov/apigateway/api/v1/measurestratification/${measureId}/${geographicTypeId}/0`
         );
-        this.setState({
-          stratifications: stratifications.data
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    }
-  }
-
-  // select stratifiation level
-  handleChange(event) {
-    // reset stratification parameters and fetch new parameters based on selected stratification level
-    this.setState(
-      {
-        value: event.target.value,
-        checked: [],
-        expanded: []
-      },
-      () => this.setParameterOptions()
-    );
-    this.props.handleSelect(event.target.value, '');
-  }
-
-  // sets stratifications for selected stratificationLevel (state.parameterOptions)
-  // in shape for checkbox tree
-  setParameterOptions() {
-    const { options, stratifications, value } = this.state;
-    // finds the selected stratification level (e.g. State x Gender x Race/Ethnicity)
-    const selectedStratificationLevel = options.find(
-      o => o.id === parseInt(value, 10)
-    );
-    // adds the stratification options / params to the stratificationTypes of the selected stratifciation level
-    const stratificationParams = selectedStratificationLevel.stratificationType.map(
-      st => {
-        const stratification = stratifications.find(
-          s => s.stratificationTypeId === st.id
-        );
-        return {
+        const stratificationParams = stratifications.data.map(stratification => ({
           value: stratification.columnName,
           label: stratification.displayName,
           children: stratification.stratificationItem.map(item => ({
             value: `${stratification.columnName}=${item.localId}`,
             label: item.name
           }))
-        };
+        }));
+        this.setState({ parameterOptions: stratificationParams });
+
+        // call with empty params
+        this.props.handleSelect(this.getStratificationLevelId([]), '');
+      } catch (error) {
+        console.error(error);
       }
-    );
-    this.setState({ parameterOptions: stratificationParams });
+    }
   }
 
+  getStratificationLevelId(checked) {
+    const { stratificationlevels } = this.state;
+    // create new set (unique) with stratification level column names
+    const columnNames = new Set(checked.map(c => c.slice(0, c.indexOf('='))));
+    // find stratifciationLevel with those column names
+    const stratificationLevel = stratificationlevels.find(sl => {
+      const slColumnNames = new Set(sl.stratificationType.map(st => st.columnName));
+      // check if equal
+      if (slColumnNames.length !== columnNames.length) {
+        return false;
+      }
+      for (let c of columnNames) {
+        if (!slColumnNames.has(c)) {
+          return false;
+        }
+      }
+      return true;
+    });
+    return stratificationLevel && stratificationLevel.id && stratificationLevel.id.toString();
+  }
   // query params
   handleCheck(checked) {
     this.setState({ checked });
+    const stratificationLevelId = this.getStratificationLevelId(checked);
 
     // preapre params
     const paramsJson = {};
@@ -134,7 +116,7 @@ class SelectStratificationLevel extends Component {
     }
 
     // return them
-    this.props.handleSelect(this.state.value, preparedParams.join('&'));
+    this.props.handleSelect(stratificationLevelId, preparedParams.join('&'));
   }
 
   handleExpand(expanded) {
@@ -142,51 +124,30 @@ class SelectStratificationLevel extends Component {
   }
 
   render() {
-    const { value, options, checked, expanded, parameterOptions } = this.state;
+    const { checked, expanded, parameterOptions } = this.state;
     const disabled =
       this.props.measureId === null || this.props.geographicTypeId === null;
 
-    const optionsToRender = options.map((item, index) => (
-      <option key={index} value={item.id}>
-        {item.name}
-      </option>
-    ));
-    optionsToRender.unshift([
-      <option key="-1" value="" disabled>
-        Select stratification level
-      </option>
-    ]);
-
     return (
-      <div className="field">
-        <label className="label">Stratification level</label>
-        <div className="control">
-          <div className="select">
-            <select
-              value={value}
-              onChange={this.handleChange}
-              disabled={disabled}
-            >
-              {optionsToRender}
-            </select>
+      <Fragment>
+        {
+          parameterOptions.length > 0 &&
+          <div className="field">
+            <label className="label">Stratifications</label>
+            <div className="m-t-sm">
+              <CheckboxTree
+                nodes={parameterOptions}
+                checked={checked}
+                expanded={expanded}
+                onCheck={this.handleCheck}
+                onExpand={this.handleExpand}
+                disabled={disabled}
+                />
+            </div>
+            <p className="help">optional; some stratifications can't be combined</p>
           </div>
-        </div>
-        {parameterOptions.length > 0 && (
-          <div className="m-t-sm">
-            <CheckboxTree
-              nodes={parameterOptions}
-              checked={checked}
-              expanded={expanded}
-              onCheck={this.handleCheck}
-              onExpand={this.handleExpand}
-            />
-            <p className="help">
-              Note: Select at least one item per category. Some items can't be
-              grouped.
-            </p>
-          </div>
-        )}
-      </div>
+        }
+      </Fragment>
     );
   }
 }

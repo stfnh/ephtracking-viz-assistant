@@ -41,7 +41,6 @@ class GeographicFilter extends Component {
   }
 
   handleCountyChange(event) {
-    console.log(event);
     if (event.length === 0 || event[0] === 'ALL') {
       // no filter selected or all counties selected
       this.props.handleSelect({
