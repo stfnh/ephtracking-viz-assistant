@@ -2,14 +2,15 @@ import React, { Fragment }from 'react'
 import PropTypes from 'prop-types';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/styles/hljs';
+import { dependencies } from '../../../package.json';
 
 import './Code.css';
 
 const Code = ({ options }) => {
   const svgContainer = '<svg id="viz" width="900" height="400"></svg>';
   const snippet = `
-<script src="https://d3js.org/d3.v4.min.js"></script>  
-<script src="https://unpkg.com/ephtracking-viz/dist/index.umd.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://unpkg.com/ephtracking-viz@${dependencies['ephtracking-viz']}/dist/index.umd.min.js"></script>
 <script>
   ${options}
   ephtrackingViz.createVisualization('svg#viz', options);

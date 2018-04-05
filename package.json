@@ -8,7 +8,7 @@
     "bulma": "^0.6.2",
     "core-js": "2.5.3",
     "d3": "^4.13.0",
-    "ephtracking-viz": "^2.3.1",
+    "ephtracking-viz": "2.3.1",
     "font-awesome": "4.7.0",
     "gh-pages": "^1.1.0",
     "react": "^16.2.0",
