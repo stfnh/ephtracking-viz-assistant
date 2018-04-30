@@ -41,6 +41,11 @@ class SelectState extends Component {
       } catch (error) {
         console.error(error);
       }
+    } else {
+      // use all states unfiltered
+      this.setState({
+        options: STATES
+      });
     }
   }
 
@@ -51,7 +56,7 @@ class SelectState extends Component {
 
   render() {
     const { value, options } = this.state;
-    const disabled = this.props.measureId === null;
+    const disabled = this.props.isDisabled;
 
     const optionsToRender = options.map(item => (
       <option key={item.value} value={item.value}>
@@ -85,7 +90,8 @@ class SelectState extends Component {
 
 SelectState.propTypes = {
   handleSelect: PropTypes.func.isRequired,
-  measureId: PropTypes.string
+  measureId: PropTypes.string,
+  isDisabled: PropTypes.bool
 };
 
 export default SelectState;

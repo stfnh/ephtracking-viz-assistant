@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
-import GeographicFilter from '../../components/GeographicFilter';
 import SelectYears from '../../containers/SelectYears';
 import SelectStratificationLevel from '../../containers/SelectStratificationLevel';
 
 import SelectGeographicType from '../../containers/SelectGeographicType';
-import './LineChart.css';
 
-class LineChart extends Component {
+class Choropleth extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,8 +85,7 @@ class LineChart extends Component {
       years,
       queryParams,
       view } = this.state;
-    const isValid = measureId && geographicTypeId && stratificationLevelId &&
-      geographicTypeIdFilter && geographicItemsFilter && isSmoothed && years;
+    const isValid = measureId && geographicTypeId && stratificationLevelId && isSmoothed && years;
     let temporal;
     if (years && years.length > 0) {
       const min = years[0];
@@ -100,21 +97,19 @@ class LineChart extends Component {
       }
     }
     const options = `var options = {
-  type: 'line-chart',
+  type: 'choropleth',
   title: '${title}',
   data: {
     measureId: '${measureId}',
     temporal: '${temporal}',
     stratificationLevelId: '${stratificationLevelId}',
-    geographicTypeIdFilter: '${geographicTypeIdFilter}',
-    geographicItemsFilter: ['${geographicItemsFilter && geographicItemsFilter.join("', '")}'],
     isSmoothed: '${isSmoothed}',
     queryParams: '${queryParams}'
     }
   };`
     return (
       <div className="container">
-        <h1 className="title">Time-series chart</h1>
+        <h1 className="title">Choropleth map</h1>
         <hr />
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasure} />
@@ -126,11 +121,6 @@ class LineChart extends Component {
           measureId={measureId}
           handleSelect={this.setGeographicTypeId}
         />
-        <GeographicFilter
-          measureId={measureId}
-          geographicTypeId={geographicTypeId}
-          handleSelect={this.setGeographicFilter}
-        />
         <SelectStratificationLevel
           measureId={measureId}
           geographicTypeId={geographicTypeId}
@@ -140,7 +130,7 @@ class LineChart extends Component {
         <ul>
           <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
             <a>
-              <span className="icon is-small"><i className="fa fa-line-chart"></i></span>
+              <span className="icon is-small"><i className="fa fa-globe"></i></span>
               <span>Preview</span>
             </a>
           </li>
@@ -154,7 +144,7 @@ class LineChart extends Component {
       </div>
       { view === 'preview' && isValid &&
         <VizPreview
-          type="line-chart"
+          type="choropleth"
           measureId={measureId}
           temporal={years}
           stratificationLevelId={stratificationLevelId}
@@ -171,5 +161,5 @@ class LineChart extends Component {
   }
 }
 
-export default LineChart;
+export default Choropleth;
 

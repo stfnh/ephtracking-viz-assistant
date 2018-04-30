@@ -66,6 +66,7 @@ class GeographicFilter extends Component {
             <SelectState
               measureId={measureId}
               handleSelect={this.setStateFips}
+              isDisabled={measureId===null}
             />
             <SelectCounties
               stateFips={this.state.stateFips}

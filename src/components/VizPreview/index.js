@@ -5,7 +5,9 @@ import * as d3 from 'd3';
 
 class VizPreview extends Component {
   componentDidMount() {
-    const { measureId,
+    const {
+      type,
+      measureId,
       title,
       geographicItemsFilter,
       stratificationLevelId,
@@ -13,7 +15,7 @@ class VizPreview extends Component {
       isSmoothed,
       queryParams } = this.props;
     const options = {
-      type: 'line-chart',
+      type,
       title,
       data: {
         measureId,
@@ -34,7 +36,9 @@ class VizPreview extends Component {
 
   componentWillReceiveProps(newProps) {
     d3.select(this.svg).selectAll('*').remove();
-    const { measureId,
+    const { 
+      type,
+      measureId,
       title,
       geographicItemsFilter,
       stratificationLevelId,
@@ -43,7 +47,7 @@ class VizPreview extends Component {
       isSmoothed,
       queryParams } = newProps;
     const options = {
-      type: 'line-chart',
+      type,
       title,
       data: {
         measureId,
@@ -70,8 +74,8 @@ VizPreview.propTypes = {
   measureId: PropTypes.string.isRequired,
   title: PropTypes.string,
   stratificationLevelId: PropTypes.string.isRequired,
-  geographicTypeIdFilter: PropTypes.string.isRequired,
-  geographicItemsFilter: PropTypes.array.isRequired,
+  geographicTypeIdFilter: PropTypes.string,
+  geographicItemsFilter: PropTypes.array,
   isSmoothed: PropTypes.string.isRequired,
   temporal: PropTypes.oneOfType([
     PropTypes.string.isRequired,
