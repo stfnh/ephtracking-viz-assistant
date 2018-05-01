@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
-import SelectYears from '../../containers/SelectYears';
-import SelectStratificationLevel from '../../containers/SelectStratificationLevel';
-
+import SelectYear from '../../containers/SelectYear';
 import SelectGeographicType from '../../containers/SelectGeographicType';
 
+// only supports one year and no advanced stratifications at this version
 class Choropleth extends Component {
   constructor(props) {
     super(props);
@@ -14,20 +13,17 @@ class Choropleth extends Component {
       measureId: null,
       title: null,
       geographicTypeId: null,
-      stratificationLevelId: null,
       geographicTypeIdFilter: null,
       geographicItemsFilter: null,
       isSmoothed: null,
-      years: null,
+      year: null,
       view: 'preview',
       queryParams: ''
     };
     this.setMeasure = this.setMeasure.bind(this);
     this.setGeographicTypeId = this.setGeographicTypeId.bind(this);
-    this.setGeographicFilter = this.setGeographicFilter.bind(this);
     this.setView = this.setView.bind(this);
-    this.setYears = this.setYears.bind(this);
-    this.setStratificationLevel = this.setStratificationLevel.bind(this);
+    this.setYear = this.setYear.bind(this);
   }
 
   setMeasure(measureId, title) {
@@ -35,16 +31,15 @@ class Choropleth extends Component {
       measureId,
       title,
       geographicTypeId: null,
-      stratificationLevelId: null,
       geographicTypeIdFilter: null,
       geographicItemsFilter: null,
       isSmoothed: null,
-      years: null
+      year: null
     });
   }
 
-  setYears(years) {
-    this.setState({ years });
+  setYear(year) {
+    this.setState({ year });
   }
 
   setGeographicTypeId(geographicType) {
@@ -55,20 +50,6 @@ class Choropleth extends Component {
       geographicItemsFilter: null
     });
   }
-  
-  setGeographicFilter(filter) {
-    this.setState({
-      geographicTypeIdFilter: filter.geographicTypeIdFilter,
-      geographicItemsFilter: filter.geographicItemsFilter.map(i => i.value)
-    });
-  }
-  
-  setStratificationLevel(stratificationLevelId, queryParams) {
-    this.setState({
-      stratificationLevelId,
-      queryParams
-    })
-  }
 
   setView(view) {
     this.setState({ view });
@@ -78,31 +59,20 @@ class Choropleth extends Component {
     const { measureId,
       title,
       geographicTypeId,
-      stratificationLevelId,
       geographicTypeIdFilter,
       geographicItemsFilter,
       isSmoothed,
-      years,
+      year,
       queryParams,
       view } = this.state;
-    const isValid = measureId && geographicTypeId && stratificationLevelId && isSmoothed && years;
-    let temporal;
-    if (years && years.length > 0) {
-      const min = years[0];
-      const max = years[years.length - 1];
-      if (min === max) {
-        temporal = min;
-      } else {
-        temporal = `${min}-${max}`;
-      }
-    }
+    const isValid = measureId && geographicTypeId && isSmoothed && year;
     const options = `var options = {
   type: 'choropleth',
   title: '${title}',
   data: {
     measureId: '${measureId}',
-    temporal: '${temporal}',
-    stratificationLevelId: '${stratificationLevelId}',
+    temporal: '${year}',
+    stratificationLevelId: '${geographicTypeId}',
     isSmoothed: '${isSmoothed}',
     queryParams: '${queryParams}'
     }
@@ -113,18 +83,13 @@ class Choropleth extends Component {
         <hr />
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasure} />
-        <SelectYears
+        <SelectYear
           measureId={measureId}
-          handleCheck={this.setYears}
+          handleSelect={this.setYear}
         />
         <SelectGeographicType
           measureId={measureId}
           handleSelect={this.setGeographicTypeId}
-        />
-        <SelectStratificationLevel
-          measureId={measureId}
-          geographicTypeId={geographicTypeId}
-          handleSelect={this.setStratificationLevel}
         />
       <div className="tabs">
         <ul>
@@ -146,8 +111,8 @@ class Choropleth extends Component {
         <VizPreview
           type="choropleth"
           measureId={measureId}
-          temporal={years}
-          stratificationLevelId={stratificationLevelId}
+          temporal={year}
+          stratificationLevelId={geographicTypeId}
           geographicTypeIdFilter={geographicTypeIdFilter}
           geographicItemsFilter={geographicItemsFilter}
           isSmoothed={isSmoothed}

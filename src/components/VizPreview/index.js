@@ -9,6 +9,7 @@ class VizPreview extends Component {
       type,
       measureId,
       title,
+      temporal,
       geographicItemsFilter,
       stratificationLevelId,
       geographicTypeIdFilter,
@@ -23,6 +24,7 @@ class VizPreview extends Component {
         geographicTypeIdFilter,
         geographicItemsFilter,
         isSmoothed,
+        temporal,
         queryParams
       }
     };
@@ -65,7 +67,7 @@ class VizPreview extends Component {
 
   render() {
     return (
-      <svg width="900" height="400" ref={elem => { this.svg = elem; }} />
+      <svg width="960" height="600" ref={elem => { this.svg = elem; }} />
     );
   }
 };
