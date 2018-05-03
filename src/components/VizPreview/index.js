@@ -66,8 +66,15 @@ class VizPreview extends Component {
   }
 
   render() {
+    const { type } = this.props;
+    let width = 900;
+    let height = 400;
+    if (type === 'choropleth') {
+      width = 1160;
+      height = 640;
+    }
     return (
-      <svg width="960" height="600" ref={elem => { this.svg = elem; }} />
+      <svg width={width} height={height} ref={elem => { this.svg = elem; }} />
     );
   }
 };
