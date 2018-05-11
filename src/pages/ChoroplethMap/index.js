@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
-import SelectYear from '../../containers/SelectYear';
+import SelectYears from '../../containers/SelectYears';
 import SelectGeographicType from '../../containers/SelectGeographicType';
 
 // only supports one year and no advanced stratifications at this version
@@ -83,9 +83,9 @@ class Choropleth extends Component {
         <hr />
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasure} />
-        <SelectYear
+        <SelectYears
           measureId={measureId}
-          handleSelect={this.setYear}
+          handleCheck={this.setYear}
         />
         <SelectGeographicType
           measureId={measureId}
