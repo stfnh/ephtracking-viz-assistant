@@ -4,6 +4,8 @@ import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
 import SelectYears from '../../containers/SelectYears';
 import SelectGeographicType from '../../containers/SelectGeographicType';
+import SelectOneStratificationLevel from '../../containers/SelectOneStratifcationLevel';
+import ErrorBoundary from '../../components/ErrorBoundary';
 
 // only supports one year and no advanced stratifications at this version
 class Choropleth extends Component {
@@ -13,17 +15,17 @@ class Choropleth extends Component {
       measureId: null,
       title: null,
       geographicTypeId: null,
-      geographicTypeIdFilter: null,
-      geographicItemsFilter: null,
+      stratificationLevelId: null,
       isSmoothed: null,
-      year: null,
+      years: null,
       view: 'preview',
       queryParams: ''
     };
     this.setMeasure = this.setMeasure.bind(this);
     this.setGeographicTypeId = this.setGeographicTypeId.bind(this);
     this.setView = this.setView.bind(this);
-    this.setYear = this.setYear.bind(this);
+    this.setYears = this.setYears.bind(this);
+    this.setStratificationLevel = this.setStratificationLevel.bind(this);    
   }
 
   setMeasure(measureId, title) {
@@ -34,12 +36,13 @@ class Choropleth extends Component {
       geographicTypeIdFilter: null,
       geographicItemsFilter: null,
       isSmoothed: null,
-      year: null
+      year: null,
+      queryParams: ''
     });
   }
 
-  setYear(year) {
-    this.setState({ year });
+  setYears(years) {
+    this.setState({ years });
   }
 
   setGeographicTypeId(geographicType) {
@@ -47,8 +50,16 @@ class Choropleth extends Component {
       geographicTypeId: geographicType.geographicTypeId.toString(),
       isSmoothed: geographicType.smoothingLevelId === 1 ? '0' : '1', // 1 = no smoothing available (api)
       geographicTypeIdFilter: null,
-      geographicItemsFilter: null
+      geographicItemsFilter: null,
+      queryParams: ''
     });
+  }
+
+  setStratificationLevel(stratificationLevelId, queryParams) {
+    this.setState({
+      stratificationLevelId,
+      queryParams
+    })
   }
 
   setView(view) {
@@ -61,18 +72,29 @@ class Choropleth extends Component {
       geographicTypeId,
       geographicTypeIdFilter,
       geographicItemsFilter,
+      stratificationLevelId,
       isSmoothed,
-      year,
+      years,
       queryParams,
       view } = this.state;
-    const isValid = measureId && geographicTypeId && isSmoothed && year;
+    const isValid = measureId && geographicTypeId && isSmoothed && years;
+    let temporal;
+    if (years && years.length > 0) {
+      const min = years[0];
+      const max = years[years.length - 1];
+      if (min === max) {
+        temporal = min;
+      } else {
+        temporal = `${min}-${max}`;
+      }
+    }
     const options = `var options = {
   type: 'choropleth',
   title: '${title}',
   data: {
     measureId: '${measureId}',
-    temporal: '${year}',
-    stratificationLevelId: '${geographicTypeId}',
+    temporal: '${temporal}',
+    stratificationLevelId: '${stratificationLevelId}',
     isSmoothed: '${isSmoothed}',
     queryParams: '${queryParams}'
     }
@@ -85,11 +107,16 @@ class Choropleth extends Component {
         <CIM handleSelect={this.setMeasure} />
         <SelectYears
           measureId={measureId}
-          handleCheck={this.setYear}
+          handleCheck={this.setYears}
         />
         <SelectGeographicType
           measureId={measureId}
           handleSelect={this.setGeographicTypeId}
+        />
+        <SelectOneStratificationLevel
+          measureId={measureId}
+          geographicTypeId={geographicTypeId}
+          handleSelect={this.setStratificationLevel}
         />
       <div className="tabs">
         <ul>
@@ -108,17 +135,19 @@ class Choropleth extends Component {
         </ul>
       </div>
       { view === 'preview' && isValid &&
-        <VizPreview
-          type="choropleth"
-          measureId={measureId}
-          temporal={year}
-          stratificationLevelId={geographicTypeId}
-          geographicTypeIdFilter={geographicTypeIdFilter}
-          geographicItemsFilter={geographicItemsFilter}
-          isSmoothed={isSmoothed}
-          queryParams={queryParams}
-          title={title}
-        />
+        <ErrorBoundary>
+          <VizPreview
+            type="choropleth"
+            measureId={measureId}
+            temporal={temporal}
+            stratificationLevelId={stratificationLevelId}
+            geographicTypeIdFilter={geographicTypeIdFilter}
+            geographicItemsFilter={geographicItemsFilter}
+            isSmoothed={isSmoothed}
+            queryParams={queryParams}
+            title={title}
+          />
+        </ErrorBoundary>
       }
       { view === 'code' && <Code options={options} />}
     </div>

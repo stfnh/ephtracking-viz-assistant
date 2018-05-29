@@ -41,7 +41,8 @@ class LineChart extends Component {
       geographicTypeIdFilter: null,
       geographicItemsFilter: null,
       isSmoothed: null,
-      years: null
+      years: null,
+      queryParams: ''
     });
   }
 
@@ -54,7 +55,8 @@ class LineChart extends Component {
       geographicTypeId: geographicType.geographicTypeId.toString(),
       isSmoothed: geographicType.smoothingLevelId === 1 ? '0' : '1', // 1 = no smoothing available (api)
       geographicTypeIdFilter: null,
-      geographicItemsFilter: null
+      geographicItemsFilter: null,
+      queryParams: ''
     });
   }
   
