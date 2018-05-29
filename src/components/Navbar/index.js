@@ -48,6 +48,23 @@ class Navbar extends Component {
               Choropleth map
             </NavLink>
           </div>
+          <div class="navbar-end">
+
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <a class="bd-tw-button button" target="_blank" rel="noopener noreferrer" href="https://github.com/stfnh/ephtracking-viz-assistant">
+                  <span class="icon">
+                    <i class="fa fa-github"></i>
+                  </span>
+                  <span>
+                    GitHub
+                  </span>
+                </a>
+              </p>
+            </div>
+          </div>
+          </div>
         </div>
       </nav>
     );
