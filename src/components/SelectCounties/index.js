@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 
-import 'react-select/dist/react-select.css';
-
 import COUNTIES from './counties';
 
 /**
@@ -58,14 +56,14 @@ class SelectCounties extends Component {
         <div className="field">
           <label className="label">Select counties</label>
           <div className="control">
-            <div className="select" style={{minWidth: 385}}>
+            <div style={{maxWidth: 450}}>
               <Select
                 name="select-states"
                 value={selectedOptions}
                 onChange={this.handleChange}
                 options={counties}
                 disabled={this.props.stateFips === null}
-                multi
+                isMulti
               />
             </div>
           </div>

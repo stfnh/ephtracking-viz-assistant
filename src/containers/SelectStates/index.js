@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import axios from 'axios';
 
-import 'react-select/dist/react-select.css';
-
 import states from './states';
 
 class SelectStates extends Component {
@@ -60,14 +58,14 @@ class SelectStates extends Component {
       <div className="field">
         <label className="label">Select state(s)</label>
         <div className="control">
-          <div className="select" style={{minWidth: 385}}>
+          <div style={{maxWidth: 450}}>
             <Select
               name="select-states"
               value={value}
               onChange={this.handleChange}
               options={filteredStates}
               disabled={this.props.measureId === null}
-              multi
+              isMulti
             />
           </div>
         </div>
