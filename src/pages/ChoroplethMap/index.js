@@ -149,7 +149,7 @@ class Choropleth extends Component {
           />
         </ErrorBoundary>
       }
-      { view === 'code' && <Code options={options} />}
+      { view === 'code' && <Code options={options} width={1160} height={640} />}
     </div>
     );
   }

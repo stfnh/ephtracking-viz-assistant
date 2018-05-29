@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import CheckboxTree from 'react-checkbox-tree';
 import axios from 'axios';
 import Select from 'react-select';
 

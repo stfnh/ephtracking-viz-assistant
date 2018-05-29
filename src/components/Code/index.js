@@ -6,8 +6,8 @@ import { dependencies } from '../../../package.json';
 
 import './Code.css';
 
-const Code = ({ options }) => {
-  const svgContainer = '<svg id="viz" width="900" height="400"></svg>';
+const Code = ({ options, width, height }) => {
+  const svgContainer = `<svg id="viz" width="${width}" height="${height}"></svg>`;
   const snippet = `
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script src="https://unpkg.com/ephtracking-viz@${dependencies['ephtracking-viz']}/dist/index.umd.min.js"></script>
@@ -28,8 +28,15 @@ const Code = ({ options }) => {
   )
 }
 
-Code.propTypes  = {
-  options: PropTypes.string.isRequired
+Code.propTypes = {
+  options: PropTypes.string.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number
+};
+
+Code.defaultProps = {
+  width: 900,
+  height: 400
 };
 
 export default Code
