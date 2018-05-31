@@ -53,12 +53,25 @@ class AdvancedOptions extends Component {
           <label className="label">Color scheme</label>
           <div className="control">
             <div className="select">
-              <select name="colorScheme" value={this.state.colorScheme} onChange={this.handleInputChange}>
-                <option value="schemeYlGn">Yellow to Green</option>
-                <option value="schemeBuGn">Green</option>
-                <option value="schemeBuPu">Blue</option>
-                <option value="schemeOrRd">Red</option>
-                <option value="schemeGnBu">Green to Blue</option>
+            <select name="colorScheme" value={this.state.colorScheme} onChange={this.handleInputChange}>
+                <option value="schemeBlues">Blue</option>
+                <option value="schemeGreens">Green</option>
+                <option value="schemeGreys">Grey</option>
+                <option value="schemeOranges">Orange</option>
+                <option value="schemePurples">Purple</option>
+                <option value="schemeReds">Red</option>
+                <option value="schemeBuGn">Blue to green</option>
+                <option value="schemeBuPu">Blue to purple</option>
+                <option value="schemeGnBu">Green to blue</option>
+                <option value="schemeOrRd">Orange to red</option>
+                <option value="schemePuBuGn">Purple to blue to green</option>
+                <option value="schemePuBu">Purple to blue</option>
+                <option value="schemePuRd">Purple to red</option>
+                <option value="schemeRdPu">Red to purple</option>
+                <option value="schemeYlGnBu">Yellow to Blue</option>
+                <option value="schemeYlGn">Yellow to green (default)</option>
+                <option value="schemeYlOrBr">Yellow to brown</option>
+                <option value="schemeYlOrRd">Yellow to red</option>
               </select>
             </div>
           </div>
