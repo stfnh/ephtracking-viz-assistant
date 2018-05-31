@@ -80,13 +80,16 @@ class Choropleth extends Component {
     const isValid = measureId && geographicTypeId && isSmoothed && years;
     let temporal;
     if (years && years.length > 0) {
-      const min = years[0];
-      const max = years[years.length - 1];
+      const min = Number.parseInt(years[0], 10);
+      const max = Number.parseInt(years[years.length - 1], 10);
       if (min === max) {
         temporal = min;
-      } else {
+      } else if (max === min + years.length - 1){
         temporal = `${min}-${max}`;
+      } else {
+        temporal = years;
       }
+      console.log(temporal);
     }
     const options = `var options = {
   type: 'choropleth',
