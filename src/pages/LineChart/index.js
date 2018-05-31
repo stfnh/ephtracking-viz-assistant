@@ -102,7 +102,6 @@ class LineChart extends Component {
       } else {
         temporal = years;
       }
-      console.log(temporal);
     }
     const options = `var options = {
   type: 'line-chart',

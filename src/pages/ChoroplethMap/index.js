@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+
 import CIM from '../../components/CIM';
 import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
+import ErrorBoundary from '../../components/ErrorBoundary';
+import AdvancedOptions from '../../components/AdvancedOptions';
+
 import SelectYears from '../../containers/SelectYears';
 import SelectGeographicType from '../../containers/SelectGeographicType';
 import SelectOneStratificationLevel from '../../containers/SelectOneStratifcationLevel';
-import ErrorBoundary from '../../components/ErrorBoundary';
 
 // only supports one year and no advanced stratifications at this version
 class Choropleth extends Component {
@@ -19,13 +22,17 @@ class Choropleth extends Component {
       isSmoothed: null,
       years: null,
       view: 'preview',
-      queryParams: ''
+      queryParams: '',
+      showLegend: null,
+      colorScheme: null,
+      breakGroups: null
     };
     this.setMeasure = this.setMeasure.bind(this);
     this.setGeographicTypeId = this.setGeographicTypeId.bind(this);
     this.setView = this.setView.bind(this);
     this.setYears = this.setYears.bind(this);
-    this.setStratificationLevel = this.setStratificationLevel.bind(this);    
+    this.setStratificationLevel = this.setStratificationLevel.bind(this);
+    this.onAdvancedOptionsChange = this.onAdvancedOptionsChange.bind(this);
   }
 
   setMeasure(measureId, title) {
@@ -66,6 +73,13 @@ class Choropleth extends Component {
     this.setState({ view });
   }
 
+  onAdvancedOptionsChange(options) {
+    const { showLegend, colorScheme, breakGroups } = options;
+    this.setState({
+      showLegend, colorScheme, breakGroups
+    });
+  }
+
   render() {
     const { measureId,
       title,
@@ -76,8 +90,11 @@ class Choropleth extends Component {
       isSmoothed,
       years,
       queryParams,
+      colorScheme,
+      breakGroups,
+      showLegend,
       view } = this.state;
-    const isValid = measureId && geographicTypeId && isSmoothed && years;
+    const isValid = measureId && geographicTypeId && isSmoothed && years && stratificationLevelId && colorScheme && breakGroups;
     let temporal;
     if (years && years.length > 0) {
       const min = Number.parseInt(years[0], 10);
@@ -89,11 +106,13 @@ class Choropleth extends Component {
       } else {
         temporal = years;
       }
-      console.log(temporal);
     }
     const options = `var options = {
   type: 'choropleth',
   title: '${title}',
+  showLegend: ${showLegend},
+  breakGroups: ${breakGroups},
+  colorScheme: '${colorScheme}',
   data: {
     measureId: '${measureId}',
     temporal: '${temporal}',
@@ -121,6 +140,8 @@ class Choropleth extends Component {
           geographicTypeId={geographicTypeId}
           handleSelect={this.setStratificationLevel}
         />
+        <AdvancedOptions handleChange={this.onAdvancedOptionsChange} />
+
       <div className="tabs">
         <ul>
           <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
@@ -149,6 +170,9 @@ class Choropleth extends Component {
             isSmoothed={isSmoothed}
             queryParams={queryParams}
             title={title}
+            showLegend={showLegend}
+            breakGroups={breakGroups}
+            colorScheme={colorScheme}
           />
         </ErrorBoundary>
       }
