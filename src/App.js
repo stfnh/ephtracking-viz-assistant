@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import LineChart from './pages/LineChart';
 import ChoroplethMap from './pages/ChoroplethMap';
+import BubbleChart from './pages/BubbleChart';
 
 const App = () => (
   <Router>
@@ -14,6 +15,7 @@ const App = () => (
         <Route exact path="/" component={Home} />
         <Route path="/timeseries" component={LineChart} />
         <Route path="/choropleth" component={ChoroplethMap} />
+        <Route path ="/bubblechart" component={BubbleChart} />
       </Fragment>
     </Layout>
   </Router>

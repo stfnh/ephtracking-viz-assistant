@@ -47,6 +47,9 @@ class Navbar extends Component {
             <NavLink activeClassName="is-active" onClick={this.closeMenu} className="navbar-item" to="/choropleth">
               Choropleth map
             </NavLink>
+            <NavLink activeClassName="is-active" onClick={this.closeMenu} className="navbar-item" to="/bubblechart">
+              Bubble chart
+            </NavLink>
           </div>
           <div className="navbar-end">
 
