@@ -22,11 +22,11 @@ class BubbleChart extends Component {
   }
 
   handleXMeasureIdChange = (xMeasureId, xLabel) => {
-    this.setState({ xMeasureId, xLabel });
+    this.setState({ xMeasureId, xLabel, years: null });
   }
 
   handleYMeasureIdChange = (yMeasureId, yLabel) => {
-    this.setState({ yMeasureId, yLabel });
+    this.setState({ yMeasureId, yLabel, years: null });
   }
 
   handleYearsChange = years => {
@@ -45,7 +45,7 @@ class BubbleChart extends Component {
       years,
       view
     } = this.state;
-    const isValid = title && xMeasureId && yMeasureId && years && years.length > 0;
+    const isValid = xMeasureId && yMeasureId && years && years.length > 0;
     let temporal;
     if (years && years.length > 0) {
       const min = Number.parseInt(years[0], 10);
@@ -65,15 +65,15 @@ class BubbleChart extends Component {
       data: {
         x: {
           measureId: '${xMeasureId}',
-          xLabel: '${xLabel}'
+          label: '${xLabel}'
         },
         y: {
           measureId: '${yMeasureId}',
-          yLabel: '${yLabel}'
+          label: '${yLabel}'
         },
         temporal: '${temporal}'
-      };`
-
+      }
+    };`
 
     return (
       <div className="container">
@@ -124,7 +124,7 @@ class BubbleChart extends Component {
         </ErrorBoundary>
       }
 
-      { view === 'code' && <Code options={options} width={700} height={700} />}
+      { view === 'code' && <Code options={options} width={800} height={700} />}
 
       </div>
     );
