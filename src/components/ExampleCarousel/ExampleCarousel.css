@@ -1,0 +1,24 @@
+.preview {
+  text-align: center;
+}
+
+.slides {
+  position: relative;
+  .slick-prev, .slick-next {
+    position: absolute;
+    top: 50%;
+  }
+  .slick-prev {
+    left: 5%;
+  }
+  .slick-next {
+    right: 5%;
+  }
+}
+
+.slides .slick-prev,
+.slides .slick-next {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+}
