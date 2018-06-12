@@ -5,6 +5,7 @@ import Code from '../../components/Code';
 import GeographicFilter from '../../components/GeographicFilter';
 import SelectYears from '../../containers/SelectYears';
 import SelectStratificationLevel from '../../containers/SelectStratificationLevel';
+import Layout from '../../components/Layout';
 
 import SelectGeographicType from '../../containers/SelectGeographicType';
 import './LineChart.css';
@@ -117,9 +118,8 @@ class LineChart extends Component {
     }
   };`
     return (
-      <div className="container">
-        <h1 className="title">Time-series chart</h1>
-        <hr />
+      <Layout title="Time-Series Chart">
+        <div className="content">
         <h5 className="title is-5">Set parameters</h5>
         <CIM handleSelect={this.setMeasure} />
         <SelectYears
@@ -171,6 +171,7 @@ class LineChart extends Component {
       }
       { view === 'code' && <Code options={options} />}
     </div>
+    </Layout>
     );
   }
 }

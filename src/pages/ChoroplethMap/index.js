@@ -5,6 +5,7 @@ import VizPreview from '../../components/VizPreview';
 import Code from '../../components/Code';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import AdvancedOptions from '../../components/AdvancedOptions';
+import Layout from '../../components/Layout';
 
 import SelectYears from '../../containers/SelectYears';
 import SelectGeographicType from '../../containers/SelectGeographicType';
@@ -122,62 +123,62 @@ class Choropleth extends Component {
     }
   };`
     return (
-      <div className="container">
-        <h1 className="title">Choropleth map</h1>
-        <hr />
-        <h5 className="title is-5">Set parameters</h5>
-        <CIM handleSelect={this.setMeasure} />
-        <SelectYears
-          measureId={measureId}
-          handleCheck={this.setYears}
-        />
-        <SelectGeographicType
-          measureId={measureId}
-          handleSelect={this.setGeographicTypeId}
-        />
-        <SelectOneStratificationLevel
-          measureId={measureId}
-          geographicTypeId={geographicTypeId}
-          handleSelect={this.setStratificationLevel}
-        />
-        <AdvancedOptions handleChange={this.onAdvancedOptionsChange} />
-
-      <div className="tabs">
-        <ul>
-          <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
-            <a>
-              <span className="icon is-small"><i className="fa fa-globe"></i></span>
-              <span>Preview</span>
-            </a>
-          </li>
-          <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}>
-            <a>
-              <span className="icon is-small"><i className="fa fa-code"></i></span>
-              <span>Code</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-      { view === 'preview' && isValid &&
-        <ErrorBoundary>
-          <VizPreview
-            type="choropleth"
+      <Layout title="Choropleth Map">
+        <div className="content">
+          <h5 className="title is-5">Set parameters</h5>
+          <CIM handleSelect={this.setMeasure} />
+          <SelectYears
             measureId={measureId}
-            temporal={temporal}
-            stratificationLevelId={stratificationLevelId}
-            geographicTypeIdFilter={geographicTypeIdFilter}
-            geographicItemsFilter={geographicItemsFilter}
-            isSmoothed={isSmoothed}
-            queryParams={queryParams}
-            title={title}
-            showLegend={showLegend}
-            breakGroups={breakGroups}
-            colorScheme={colorScheme}
+            handleCheck={this.setYears}
           />
-        </ErrorBoundary>
-      }
-      { view === 'code' && <Code options={options} width={1160} height={640} />}
-    </div>
+          <SelectGeographicType
+            measureId={measureId}
+            handleSelect={this.setGeographicTypeId}
+          />
+          <SelectOneStratificationLevel
+            measureId={measureId}
+            geographicTypeId={geographicTypeId}
+            handleSelect={this.setStratificationLevel}
+          />
+          <AdvancedOptions handleChange={this.onAdvancedOptionsChange} />
+
+        <div className="tabs">
+          <ul>
+            <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
+              <a>
+                <span className="icon is-small"><i className="fa fa-globe"></i></span>
+                <span>Preview</span>
+              </a>
+            </li>
+            <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}>
+              <a>
+                <span className="icon is-small"><i className="fa fa-code"></i></span>
+                <span>Code</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        { view === 'preview' && isValid &&
+          <ErrorBoundary>
+            <VizPreview
+              type="choropleth"
+              measureId={measureId}
+              temporal={temporal}
+              stratificationLevelId={stratificationLevelId}
+              geographicTypeIdFilter={geographicTypeIdFilter}
+              geographicItemsFilter={geographicItemsFilter}
+              isSmoothed={isSmoothed}
+              queryParams={queryParams}
+              title={title}
+              showLegend={showLegend}
+              breakGroups={breakGroups}
+              colorScheme={colorScheme}
+            />
+          </ErrorBoundary>
+        }
+        { view === 'code' && <Code options={options} width={1160} height={640} />}
+      </div>
+    </Layout>
     );
   }
 }

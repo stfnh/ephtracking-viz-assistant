@@ -10,14 +10,12 @@ import BubbleChart from './pages/BubbleChart';
 
 const App = () => (
   <Router>
-    <Layout>
-      <Fragment>
-        <Route exact path="/" component={Home} />
-        <Route path="/timeseries" component={LineChart} />
-        <Route path="/choropleth" component={ChoroplethMap} />
-        <Route path ="/bubblechart" component={BubbleChart} />
-      </Fragment>
-    </Layout>
+    <Fragment>
+      <Route exact path="/" component={Home} />
+      <Route path="/timeseries" component={LineChart} />
+      <Route path="/choropleth" component={ChoroplethMap} />
+      <Route path ="/bubblechart" component={BubbleChart} />
+    </Fragment>
   </Router>
 );
 

@@ -5,6 +5,7 @@ import SelectYearsFromTwoMeasures from '../../containers/SelectYearsFromTwoMeasu
 import ErrorBoundary from '../../components/ErrorBoundary';
 import BubbleVizPreview from '../../components/BubbleVizPreview';
 import Code from '../../components/Code';
+import Layout from '../../components/Layout';
 
 class BubbleChart extends Component {
   state = {
@@ -76,57 +77,57 @@ class BubbleChart extends Component {
     };`
 
     return (
-      <div className="container">
-        <h1 className="title">Bubble chart</h1>
-        <hr />
-        <h5 className="title is-5">Set parameters</h5>
-        <Title onChange={this.handleTitleChange} />
-        <hr />
-        <h5 className="title is-5">x-axis:</h5>
-        <CIM handleSelect={this.handleXMeasureIdChange} />
-        <h5 className="title is-5">y-axis:</h5>
-        <CIM handleSelect={this.handleYMeasureIdChange} />
-        <hr />
-        <SelectYearsFromTwoMeasures
-          firstMeasureId={this.state.xMeasureId}
-          secondMeasureId={this.state.yMeasureId}
-          onChange={this.handleYearsChange}
-        />
-
-        <div className="tabs">
-        <ul>
-          <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
-            <a>
-              <span className="icon is-small"><i className="fa fa-globe"></i></span>
-              <span>Preview</span>
-            </a>
-          </li>
-          <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}>
-            <a>
-              <span className="icon is-small"><i className="fa fa-code"></i></span>
-              <span>Code</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      { view === 'preview' && isValid &&
-        <ErrorBoundary>
-          <BubbleVizPreview
-            type="bubble"
-            title={title}
-            xMeasureId={xMeasureId}
-            xLabel={xLabel}
-            yMeasureId={yMeasureId}
-            yLabel={yLabel}
-            temporal={temporal}
+      <Layout title="Bubble Chart">
+        <div className="content">
+          <h5 className="title is-5">Set parameters</h5>
+          <Title onChange={this.handleTitleChange} />
+          <hr />
+          <h5 className="title is-5">x-axis:</h5>
+          <CIM handleSelect={this.handleXMeasureIdChange} />
+          <h5 className="title is-5">y-axis:</h5>
+          <CIM handleSelect={this.handleYMeasureIdChange} />
+          <hr />
+          <SelectYearsFromTwoMeasures
+            firstMeasureId={this.state.xMeasureId}
+            secondMeasureId={this.state.yMeasureId}
+            onChange={this.handleYearsChange}
           />
-        </ErrorBoundary>
-      }
 
-      { view === 'code' && <Code options={options} width={800} height={700} />}
+          <div className="tabs">
+          <ul>
+            <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
+              <a>
+                <span className="icon is-small"><i className="fa fa-area-chart"></i></span>
+                <span>Preview</span>
+              </a>
+            </li>
+            <li onClick={() => this.setView('code')} className={view === 'code' ? 'is-active': ''}>
+              <a>
+                <span className="icon is-small"><i className="fa fa-code"></i></span>
+                <span>Code</span>
+              </a>
+            </li>
+          </ul>
+        </div>
 
-      </div>
+        { view === 'preview' && isValid &&
+          <ErrorBoundary>
+            <BubbleVizPreview
+              type="bubble"
+              title={title}
+              xMeasureId={xMeasureId}
+              xLabel={xLabel}
+              yMeasureId={yMeasureId}
+              yLabel={yLabel}
+              temporal={temporal}
+            />
+          </ErrorBoundary>
+        }
+
+        { view === 'code' && <Code options={options} width={800} height={700} />}
+
+        </div>
+      </Layout>
     );
   }
 }

@@ -28,7 +28,8 @@ class Navbar extends Component {
     ? 'navbar-menu is-active'
     : 'navbar-menu';
     return (
-      <nav className="navbar is-primary" arial-label="main navigation">    
+      <nav className="navbar main-nav" arial-label="main navigation">
+        <div className="container" style={{marginTop: 0}} >
         <div className="navbar-brand">
           <NavLink exact activeClassName="is-active" className="navbar-item" to="/">
             HOME
@@ -51,23 +52,15 @@ class Navbar extends Component {
               Bubble chart
             </NavLink>
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end navbar-menu">
 
-          <div className="navbar-item">
-            <div className="field is-grouped">
-              <p className="control">
-                <a className="bd-tw-button button" target="_blank" rel="noopener noreferrer" href="https://github.com/stfnh/ephtracking-viz-assistant">
+                <a className="navbar-item" target="_blank" rel="noopener noreferrer" href="https://github.com/stfnh/ephtracking-viz-assistant">
                   <span className="icon">
                     <i className="fa fa-github"></i>
                   </span>
-                  <span>
-                    GitHub
-                  </span>
                 </a>
-              </p>
-            </div>
           </div>
-          </div>
+        </div>
         </div>
       </nav>
     );
