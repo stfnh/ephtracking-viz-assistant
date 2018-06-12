@@ -46,10 +46,10 @@ class Navbar extends Component {
               Time-Series Chart
             </NavLink>
             <NavLink activeClassName="is-active" onClick={this.closeMenu} className="navbar-item" to="/choropleth">
-              Choropleth map
+              Choropleth Map
             </NavLink>
             <NavLink activeClassName="is-active" onClick={this.closeMenu} className="navbar-item" to="/bubblechart">
-              Bubble chart
+              Bubble Chart
             </NavLink>
           </div>
           <div className="navbar-end navbar-menu">
