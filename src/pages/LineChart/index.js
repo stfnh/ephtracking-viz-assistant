@@ -140,7 +140,7 @@ class LineChart extends Component {
           geographicTypeId={geographicTypeId}
           handleSelect={this.setStratificationLevel}
         />
-      <div className="tabs">
+      <div className="tabs is-boxed">
         <ul>
           <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
             <a>

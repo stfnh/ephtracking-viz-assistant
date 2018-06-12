@@ -90,8 +90,8 @@ class BubbleVizPreview extends Component {
   }
 
   render() {
-    let width = 700;
-    let height = 700;
+    let width = this.props.width;
+    let height = this.props.height;
     return (
       <svg
         width={width}
@@ -114,7 +114,14 @@ BubbleVizPreview.propTypes = {
   xMeasureId: PropTypes.string.isRequired,
   xLabel: PropTypes.string.isRequired,
   yMeasureId: PropTypes.string.isRequired,
-  yLabel: PropTypes.string.isRequired
+  yLabel: PropTypes.string.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number
+};
+
+BubbleVizPreview.defaultProps = {
+  width: 700,
+  height: 700
 };
 
 export default BubbleVizPreview;

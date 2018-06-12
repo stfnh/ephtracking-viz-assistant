@@ -114,8 +114,8 @@ class VizPreview extends Component {
     }
     return (
       <svg
-        width={width}
-        height={height}
+        width={this.props.width || width}
+        height={this.props.height || height}
         ref={elem => {
           this.svg = elem;
         }}
@@ -138,7 +138,9 @@ VizPreview.propTypes = {
   ]),
   showLegend: PropTypes.bool,
   breakGroups: PropTypes.number,
-  colorScheme: PropTypes.string
+  colorScheme: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number
 };
 
 export default VizPreview;

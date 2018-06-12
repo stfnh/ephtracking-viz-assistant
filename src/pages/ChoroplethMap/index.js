@@ -142,7 +142,7 @@ class Choropleth extends Component {
           />
           <AdvancedOptions handleChange={this.onAdvancedOptionsChange} />
 
-        <div className="tabs">
+        <div className="tabs is-boxed">
           <ul>
             <li onClick={() => this.setView('preview')} className={view === 'preview' ? 'is-active' : ''}>
               <a>
