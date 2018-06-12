@@ -61,7 +61,7 @@ class BubbleChart extends Component {
 
     const options = `var options = {
       type: 'bubble',
-      title: '${title}',
+      ${title ? `title: '${title}'` : ''}
       data: {
         x: {
           measureId: '${xMeasureId}',
@@ -88,7 +88,7 @@ class BubbleChart extends Component {
         <CIM handleSelect={this.handleYMeasureIdChange} />
         <hr />
         <SelectYearsFromTwoMeasures
-          firstMeasureId={this.state.xMeasureid}
+          firstMeasureId={this.state.xMeasureId}
           secondMeasureId={this.state.yMeasureId}
           onChange={this.handleYearsChange}
         />

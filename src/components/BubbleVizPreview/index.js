@@ -10,7 +10,9 @@ class BubbleVizPreview extends Component {
       intervalId: null
     };
   }
+
   componentDidMount() {
+    this.clearAllIntervals();
     const {
       xMeasureId,
       xLabel,
@@ -20,7 +22,7 @@ class BubbleVizPreview extends Component {
       temporal
     } = this.props;
     const options = {
-      type: 'bubble',
+      type: "bubble",
       title,
       data: {
         x: {
@@ -34,7 +36,6 @@ class BubbleVizPreview extends Component {
         temporal
       }
     };
-    console.log(options);
     ephtrackingViz.createVisualization(this.svg, options);
   }
 
@@ -47,8 +48,7 @@ class BubbleVizPreview extends Component {
     clearTimeout(this.state.intervalId);
     // clear intervals
     this.clearAllIntervals();
-    d3
-      .select(this.svg)
+    d3.select(this.svg)
       .selectAll("*")
       .remove();
     const {
@@ -60,7 +60,7 @@ class BubbleVizPreview extends Component {
       temporal
     } = this.props;
     const options = {
-      type: 'bubble',
+      type: "bubble",
       title,
       data: {
         x: {
@@ -107,7 +107,8 @@ class BubbleVizPreview extends Component {
 BubbleVizPreview.propTypes = {
   title: PropTypes.string,
   temporal: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
+    PropTypes.string,
+    PropTypes.number,
     PropTypes.arrayOf(PropTypes.string)
   ]),
   xMeasureId: PropTypes.string.isRequired,

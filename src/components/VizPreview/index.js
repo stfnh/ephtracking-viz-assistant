@@ -11,6 +11,7 @@ class VizPreview extends Component {
     };
   }
   componentDidMount() {
+    this.clearAllIntervals();
     const {
       type,
       measureId,
@@ -41,7 +42,6 @@ class VizPreview extends Component {
         queryParams
       }
     };
-    console.log(options);
     ephtrackingViz.createVisualization(this.svg, options);
   }
 
@@ -90,7 +90,6 @@ class VizPreview extends Component {
         queryParams
       }
     };
-    console.log(options);
     // to avoid overdrawing
     const intervalId = setTimeout(
       () => ephtrackingViz.createVisualization(this.svg, options),
@@ -133,7 +132,8 @@ VizPreview.propTypes = {
   geographicItemsFilter: PropTypes.array,
   isSmoothed: PropTypes.string.isRequired,
   temporal: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
+    PropTypes.string,
+    PropTypes.number,
     PropTypes.arrayOf(PropTypes.string)
   ]),
   showLegend: PropTypes.bool,

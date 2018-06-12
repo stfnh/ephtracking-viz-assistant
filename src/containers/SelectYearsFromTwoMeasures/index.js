@@ -25,7 +25,7 @@ export class SelectYearsFromTwoMeasures extends Component {
       this.loadData(nextProps.firstMeasureId, nextProps.secondMeasureId);
     }
     if (nextProps.secondMeasureId !== this.props.secondMeasureId) {
-      this.loadData(nextProps.secondMeasureId, nextProps.secondMeasureId);
+      this.loadData(nextProps.firstMeasureId, nextProps.secondMeasureId);
     }
   }
 
@@ -36,7 +36,7 @@ export class SelectYearsFromTwoMeasures extends Component {
           `https://ephtracking.cdc.gov/apigateway/api/v1/getYears/${firstMeasureId}`
         );
         const responseTwo = await axios(
-          `https://ephtracking.cdc.gov/apigateway/api/v1/getYears/${firstMeasureId}`
+          `https://ephtracking.cdc.gov/apigateway/api/v1/getYears/${secondMeasureId}`
         );
         // find common years
         const years = responseOne.data.filter(year => responseTwo.data.includes(year));
@@ -94,7 +94,7 @@ export class SelectYearsFromTwoMeasures extends Component {
             expanded={this.state.expanded}
             onCheck={this.handleCheck}
             onExpand={this.handleExpand}
-            disabled={this.props.firstMeasureId === null || this.props.secondMeasureId === null}
+            disabled={this.props.firstMeasureId === null || this.props.secondMeasureId === null || this.state.years.length === 0}
           />
         </div>
       </Fragment>
