@@ -1,9 +1,9 @@
 import React from "react";
 import Layout from '../../components/Layout';
-import ExampleCarousel from '../../components/ExampleCarousel';
+import ExampleScroll from '../../components/ExampleScroll';
 
 const Home = () => (
-    <Layout title="EPH-Viz Assistant" subtitle="Easily generate and embed visualizations with data from CDC's Environmental Public Health Tracking Network">
+    <Layout title="ephtracking-viz" subtitle="Easily Generate and Embed Visualizations with Data from Cdc's Environmental Public Health Tracking Network">
       <div className="content">
         <p>
           This web app allows you to preview and generate options for the
@@ -11,7 +11,7 @@ const Home = () => (
           visualizations with data from the EPH Portal.<sup><a rel="noopener noreferrer" href="https://ephtracking.cdc.gov/" target="_blank">[1]</a></sup>
         </p>
         <h1 className="title is-5">Examples</h1>
-        <ExampleCarousel />
+        <ExampleScroll />
       </div>
     </Layout>
 );

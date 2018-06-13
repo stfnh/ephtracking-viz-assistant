@@ -1,0 +1,13 @@
+.examplescroll {
+  text-align: center;
+}
+
+.examplescroll__element {
+  margin-top: 100px;
+  margin-bottom: 50px;
+}
+
+.examplescroll__link {
+  display: block;
+  margin: 10px;
+}
