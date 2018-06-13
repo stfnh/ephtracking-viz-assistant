@@ -7,8 +7,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import './bulmaswatch.min.css';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import 'font-awesome/css/font-awesome.min.css';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
