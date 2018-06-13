@@ -3,7 +3,7 @@ import Layout from '../../components/Layout';
 import ExampleScroll from '../../components/ExampleScroll';
 
 const Home = () => (
-    <Layout title="ephtracking-viz" subtitle="Easily Generate and Embed Visualizations with Data from Cdc's Environmental Public Health Tracking Network">
+    <Layout title="ephtracking-viz" subtitle="Easily Generate and Embed Visualizations with Data from CDC's Environmental Public Health Tracking Network">
       <div className="content">
         <p>
           This web app allows you to preview and generate options for the
