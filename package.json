@@ -2,7 +2,6 @@
   "name": "ephtracking-viz-assistant",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://stfnh.github.io/ephtracking-viz-assistant",
   "dependencies": {
     "axios": "0.18.0",
     "bulma": "0.7.1",

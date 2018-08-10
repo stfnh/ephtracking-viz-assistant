@@ -7,11 +7,8 @@ cache:
 script:
   - npm run build
 deploy:
-  edge:
-    branch: v1.8.47
-  provider: pages
+  provider: surge
+  project: ./build/
+  domain: ephtracking-viz.surge.sh
   skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: build
-  on:
-    branch: master
+  on: master
