@@ -120,8 +120,8 @@ BubbleVizPreview.propTypes = {
 };
 
 BubbleVizPreview.defaultProps = {
-  width: 700,
-  height: 700
+  width: 900,
+  height: 600
 };
 
 export default BubbleVizPreview;
