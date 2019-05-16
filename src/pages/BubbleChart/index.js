@@ -62,7 +62,7 @@ class BubbleChart extends Component {
 
     const options = `var options = {
       type: 'bubble',
-      ${title ? `title: '${title}'` : ''}
+      ${title ? `title: '${title}',` : ''}
       data: {
         x: {
           measureId: '${xMeasureId}',
